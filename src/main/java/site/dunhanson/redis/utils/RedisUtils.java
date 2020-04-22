@@ -9,7 +9,6 @@ import site.dunhanson.redis.entity.Cluster;
 import site.dunhanson.redis.entity.Redis;
 import site.dunhanson.redis.entity.Sentinel;
 import site.dunhanson.redis.entity.Single;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
