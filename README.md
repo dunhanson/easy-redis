@@ -48,6 +48,8 @@ redis:
 
 redisson.yaml
 
+单节点配置
+
 ```yaml
 singleServerConfig:
   idleConnectionTimeout: 10000
@@ -70,6 +72,43 @@ nettyThreads: 32
 codec: !<org.redisson.codec.FstCodec> {}
 transportMode: "NIO"
 ```
+
+集群配置（哨兵集群配置，其它详见redisson github wiki）
+
+```yaml
+sentinelServersConfig:
+  idleConnectionTimeout: 10000
+  connectTimeout: 10000
+  timeout: 3000
+  retryAttempts: 3
+  retryInterval: 1500
+  failedSlaveReconnectionInterval: 3000
+  failedSlaveCheckInterval: 60000
+  password: bxkc2016
+  subscriptionsPerConnection: 5
+  clientName: null
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+  subscriptionConnectionMinimumIdleSize: 1
+  subscriptionConnectionPoolSize: 50
+  slaveConnectionMinimumIdleSize: 24
+  slaveConnectionPoolSize: 64
+  masterConnectionMinimumIdleSize: 24
+  masterConnectionPoolSize: 64
+  readMode: "SLAVE"
+  subscriptionMode: "SLAVE"
+  sentinelAddresses:
+    - "redis://192.168.2.170:26377"
+    - "redis://192.168.2.170:26378"
+    - "redis://192.168.2.170:26379"
+  masterName: "mymaster"
+  database: 0
+threads: 16
+nettyThreads: 32
+codec: !<org.redisson.codec.FstCodec> {}
+transportMode: "NIO"
+```
+
+
 
 ## Maven
 
