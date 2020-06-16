@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2020.03.20
  * @description redis工具类
  */
-public class RedisUtils {
+public class JedisUtils {
     /**Gson对象**/
     private static final Gson gson = new Gson();
     /**yaml配置信息**/
