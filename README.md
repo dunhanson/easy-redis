@@ -12,15 +12,6 @@ public class RedisTest {
         jedis.set("test", "hello world");
         System.out.println(jedis.get("test"));
     }
-
-    @Test
-    public void redisson() {
-        RedissonClient client = RedissonUtils.getRedisClient();
-        RLock lock = client.getLock("test");
-        lock.lock(1, TimeUnit.SECONDS);
-        //do something
-        lock.unlock();
-    }
 }
 ```
 
@@ -45,70 +36,6 @@ redis:
         - 192.168.2.170:26378
         - 192.168.2.170:26379
 ```
-
-redisson.yaml
-
-单节点配置
-
-```yaml
-singleServerConfig:
-  idleConnectionTimeout: 10000
-  connectTimeout: 10000
-  timeout: 3000
-  retryAttempts: 3
-  retryInterval: 1500
-  password: null
-  subscriptionsPerConnection: 5
-  clientName: null
-  address: "redis://127.0.0.1:6379"
-  subscriptionConnectionMinimumIdleSize: 1
-  subscriptionConnectionPoolSize: 50
-  connectionMinimumIdleSize: 24
-  connectionPoolSize: 64
-  database: 0
-  dnsMonitoringInterval: 5000
-threads: 16
-nettyThreads: 32
-codec: !<org.redisson.codec.FstCodec> {}
-transportMode: "NIO"
-```
-
-集群配置（哨兵集群配置，其它详见redisson github wiki）
-
-```yaml
-sentinelServersConfig:
-  idleConnectionTimeout: 10000
-  connectTimeout: 10000
-  timeout: 3000
-  retryAttempts: 3
-  retryInterval: 1500
-  failedSlaveReconnectionInterval: 3000
-  failedSlaveCheckInterval: 60000
-  password: bxkc2016
-  subscriptionsPerConnection: 5
-  clientName: null
-  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
-  subscriptionConnectionMinimumIdleSize: 1
-  subscriptionConnectionPoolSize: 50
-  slaveConnectionMinimumIdleSize: 24
-  slaveConnectionPoolSize: 64
-  masterConnectionMinimumIdleSize: 24
-  masterConnectionPoolSize: 64
-  readMode: "SLAVE"
-  subscriptionMode: "SLAVE"
-  sentinelAddresses:
-    - "redis://192.168.2.170:26377"
-    - "redis://192.168.2.170:26378"
-    - "redis://192.168.2.170:26379"
-  masterName: "mymaster"
-  database: 0
-threads: 16
-nettyThreads: 32
-codec: !<org.redisson.codec.FstCodec> {}
-transportMode: "NIO"
-```
-
-
 
 ## Maven
 
@@ -178,17 +105,8 @@ transportMode: "NIO"
     <artifactId>gson</artifactId>
     <version>2.8.6</version>
 </dependency>
-<dependency>
-    <groupId>org.redisson</groupId>
-    <artifactId>redisson</artifactId>
-    <version>3.12.5</version>
-</dependency>
 ```
 
 ## 参考资料
 
 https://github.com/xetorthio/jedis
-
-https://github.com/redisson/redisson
-
-https://github.com/redisson/redisson/wiki
