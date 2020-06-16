@@ -1,11 +1,11 @@
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
-import site.dunhanson.redis.utils.RedisUtils;
+import site.dunhanson.redis.utils.JedisUtils;
 
-public class RedisTest {
+public class JedisTest {
     @Test
     public void redis() {
-        Jedis jedis = RedisUtils.get();
+        Jedis jedis = JedisUtils.get();
         jedis.set("test", "hello world");
         System.out.println(jedis.get("test"));
     }
