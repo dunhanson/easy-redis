@@ -5,10 +5,10 @@
 ## 简单开始
 
 ```java
-public class RedisTest {
+public class JedisTest {
     @Test
-    public void start() {
-        Jedis jedis = RedisUtils.get();
+    public void jedis() {
+        Jedis jedis = JedisUtils.get();
         jedis.set("test", "hello world");
         System.out.println(jedis.get("test"));
     }
