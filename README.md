@@ -87,7 +87,7 @@ redis:
 <dependency>
     <groupId>site.dunhanson.redis</groupId>
     <artifactId>easy-redis</artifactId>
-    <version>2020.0608.2256</version>
+    <version>2020.0617.1413</version>
 </dependency>
 ```
 
