@@ -46,6 +46,22 @@ public class JedisTest {
     }
 
     @Test
+    public void byteSetNxTest() {
+        // value
+        Map<String, Object> map = new HashMap<>();
+        map.put("1", "aaa");
+        map.put("2", "bbb");
+        map.put("3", "ccc");
+        // set
+        byte[] key = "test".getBytes();
+        byte[] value = new Gson().toJson(map).getBytes();
+        Jedis jedis = JedisUtils.get();
+        // nx
+        Long result = jedis.setnx(key, value);
+        System.out.println(result);
+    }
+
+    @Test
     public void byteGetTest() {
         byte[] key = "test".getBytes();
         byte[] value = JedisUtils.get().get(key);
