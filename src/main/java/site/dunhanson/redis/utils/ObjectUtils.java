@@ -24,9 +24,8 @@ public class ObjectUtils {
             objectOutputStream.writeObject(object);
             return byteArrayOutputStream.toByteArray();
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -42,9 +41,8 @@ public class ObjectUtils {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             return objectInputStream.readObject();
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**

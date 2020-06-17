@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import entity.Document;
 import org.junit.Test;
 import site.dunhanson.redis.utils.ObjectUtils;
 import java.lang.reflect.Type;
@@ -32,6 +33,15 @@ public class ObjectUtilsTest {
         Type type = new TypeToken<List<String>>(){}.getType();
         list = ObjectUtils.toEntity(bytes, type);
         System.out.println(list);
+    }
+
+    @Test
+    public void documentTest() {
+        List<Document> list = new ArrayList<>();
+        list.add(Document.builder().id("1").build());
+        list.add(Document.builder().id("2").build());
+        list.add(Document.builder().id("3").build());
+        System.out.println(ObjectUtils.toByteArray(list).length);
     }
 
 }
