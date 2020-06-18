@@ -7,14 +7,14 @@ import java.lang.reflect.Type;
 
 /**
  * @author dunhanson
- * @date 2020-06-17
- * @description 对象工具类
+ * 2020-06-17
+ * 对象工具类
  */
 public class ObjectUtils {
     /**
      * 对象转二进制
      * @param object
-     * @return
+     * @return byte[]
      * @throws IOException
      */
     public static byte[] toByteArray(Object object) {
@@ -31,7 +31,7 @@ public class ObjectUtils {
     /**
      * 二进制转对象
      * @param bytes
-     * @return
+     * @return Object
      * @throws IOException
      * @throws ClassNotFoundException
      */
@@ -50,7 +50,7 @@ public class ObjectUtils {
      * @param bytes
      * @param type
      * @param <T>
-     * @return
+     * @return <T> T
      */
     public static <T> T toEntity(byte[] bytes, Type type) {
         Object object = toObject(bytes);
@@ -64,7 +64,7 @@ public class ObjectUtils {
      * @param bytes
      * @param clazz
      * @param <T>
-     * @return
+     * @return <T> T
      */
     public static <T> T toEntity(byte[] bytes, Class<T> clazz) {
         Object object = toObject(bytes);

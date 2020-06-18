@@ -4,8 +4,8 @@ import lombok.Data;
 
 /**
  * @author dunhanson
- * @date 2020-04-22
- * @description 单节点信息
+ * 2020-04-22
+ * 单节点信息
  */
 @Data
 public class Single {

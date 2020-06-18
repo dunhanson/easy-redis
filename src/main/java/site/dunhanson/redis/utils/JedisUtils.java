@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author dunhanson
- * @date 2020.03.20
- * @description redis工具类
+ * 2020.03.20
+ * redis工具类
  */
 public class JedisUtils {
     /**Gson对象**/
@@ -31,7 +31,7 @@ public class JedisUtils {
     /**
      * 单节点
      * @param single
-     * @return
+     * @return Jedis
      */
     private static Jedis getSingle(Single single) {
         Jedis jedis = new Jedis(single.getHost(), single.getPort());
@@ -45,7 +45,7 @@ public class JedisUtils {
     /**
      * 哨兵
      * @param sentinel
-     * @return
+     * @return Jedis
      */
     private static Jedis getSentinel(Sentinel sentinel) {
         String masterName = sentinel.getMasterName();
@@ -61,7 +61,7 @@ public class JedisUtils {
 
     /**
      * 获取
-     * @return
+     * @return Jedis
      */
     public static Jedis get() {
         //类型（单节点&集群）

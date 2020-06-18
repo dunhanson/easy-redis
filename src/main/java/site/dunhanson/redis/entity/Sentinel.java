@@ -6,8 +6,8 @@ import java.util.Set;
 
 /**
  * @author dunhanson
- * @date 2020-04-22
- * @description 哨兵信息
+ * 2020-04-22
+ * 哨兵信息
  */
 @Data
 public class Sentinel {

@@ -9,8 +9,8 @@ import java.util.Map;
 
 /**
  * @author dunhanson
- * @date 2020.03.20
- * @description YAML工具类
+ * 2020.03.20
+ * YAML工具类
  */
 public class YamlUtils {
     private static Map<String, Map<String, Object>> basicMap = new HashMap<>();
@@ -18,7 +18,7 @@ public class YamlUtils {
     /**
      * 加载YAML文件
      * @param path
-     * @return
+     * @return Map<String, Object>
      */
     public static Map<String, Object> loadFile(String path) {
         Map<String, Object> map = basicMap.get(path);
@@ -40,7 +40,7 @@ public class YamlUtils {
      * @param path
      * @param keyArr
      * @param <T>
-     * @return
+     * @return <T> T
      */
     public static <T> T getEntity(Class<T> clazz, String path, String...keyArr) {
         Map<String, Object> map = getMap(path, keyArr);
@@ -52,7 +52,7 @@ public class YamlUtils {
      * 获取Map对象
      * @param path
      * @param keyArr
-     * @return
+     * @return Map<String, Object>
      */
     public static Map<String, Object> getMap(String path, String...keyArr) {
         Map<String, Object> map = YamlUtils.loadFile(path);
@@ -70,7 +70,7 @@ public class YamlUtils {
      * 获取Object
      * @param path
      * @param keyArr
-     * @return
+     * @return Object
      */
     public static Object getValue(String path, String...keyArr) {
         Object value = null;
@@ -89,7 +89,7 @@ public class YamlUtils {
      * 获取String
      * @param path
      * @param keyArr
-     * @return
+     * @return String
      */
     public static String getValueToString(String path, String...keyArr) {
         Object value = getValue(path, keyArr);
@@ -100,7 +100,7 @@ public class YamlUtils {
      * 获取List
      * @param path
      * @param keyArr
-     * @return
+     * @return List<String>
      */
     public static List<String> getValueToList(String path, String...keyArr) {
         Object value = getValue(path, keyArr);
@@ -111,7 +111,7 @@ public class YamlUtils {
      * 获取Integer
      * @param path
      * @param keyArr
-     * @return
+     * @return Integer
      */
     public static Integer getValueToInteger(String path, String...keyArr) {
         Object value = getValue(path, keyArr);
@@ -122,7 +122,7 @@ public class YamlUtils {
      * 获取Double
      * @param path
      * @param keyArr
-     * @return
+     * @return Double
      */
     public static Double getValueToDouble(String path, String...keyArr) {
         Object value = getValue(path, keyArr);
@@ -133,7 +133,7 @@ public class YamlUtils {
      * 获取Long
      * @param path
      * @param keyArr
-     * @return
+     * @return Long
      */
     public static Long getValueToLong(String path, String...keyArr) {
         Object value = getValue(path, keyArr);
@@ -144,7 +144,7 @@ public class YamlUtils {
      * 获取Boolean
      * @param path
      * @param keyArr
-     * @return
+     * @return Boolean
      */
     public static Boolean getValueToBoolean(String path, String...keyArr) {
         Object value = getValue(path, keyArr);

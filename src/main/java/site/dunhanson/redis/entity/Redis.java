@@ -4,8 +4,8 @@ import lombok.Data;
 
 /**
  * @author dunhanson
- * @date 2020-04-22
- * @description redis
+ * 2020-04-22
+ * redis
  */
 @Data
 public class Redis {
