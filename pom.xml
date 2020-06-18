@@ -6,7 +6,43 @@
 
     <groupId>site.dunhanson.redis</groupId>
     <artifactId>easy-redis</artifactId>
-    <version>1.0.0</version>
+    <version>2020.0618.1338</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>easy redis</description>
+    <url>https://github.com/dunhanson/easy-redis</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>dunhanson</name>
+            <email>dunhanson@gmail.com</email>
+            <organization>dunhanson</organization>
+            <organizationUrl>https://github.com/dunhanson</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/dunhanson/easy-redis.git</connection>
+        <developerConnection>scm:git:https://github.com/dunhanson/easy-redis.git</developerConnection>
+        <url>https://github.com/dunhanson/easy-redis</url>
+        <tag>master</tag>
+    </scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>snapshots</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -70,6 +106,14 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
