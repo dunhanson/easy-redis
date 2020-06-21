@@ -2,15 +2,19 @@
 
 simplify redis operations
 
+
+
 ## Maven
 
 ```xml
 <dependency>
   <groupId>site.dunhanson.redis</groupId>
   <artifactId>easy-redis</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
+
+
 
 ## Config
 
@@ -101,6 +105,8 @@ public class JedisTest {
     }
 }
 ```
+
+
 
 ## references
 
