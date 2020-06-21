@@ -2,7 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import entity.Document;
 import org.junit.Test;
-import site.dunhanson.redis.utils.ObjectUtils;
+import site.dunhanson.utils.basic.ObjectUtils;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class ObjectUtilsTest {
         // 对象转二进制
         byte[] bytes = ObjectUtils.toByteArray(str);
         // 二进制转对象
-        str = ObjectUtils.toEntity(bytes, String.class);
+        str = ObjectUtils.toEntity(bytes);
         System.out.println(str);
     }
 
@@ -30,8 +30,7 @@ public class ObjectUtilsTest {
         // 对象转二进制
         byte[] bytes = ObjectUtils.toByteArray(list);
         // 二进制转对象
-        Type type = new TypeToken<List<String>>(){}.getType();
-        list = ObjectUtils.toEntity(bytes, type);
+        list = ObjectUtils.toEntity(bytes);
         System.out.println(list);
     }
 

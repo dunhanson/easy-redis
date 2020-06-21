@@ -39,7 +39,7 @@ redis:
 ```java
 public class JedisTest {
     @Test
-    public void jedis() {
+    public void start() {
         Jedis jedis = JedisUtils.get();
         jedis.set("test", "hello world");
         System.out.println(jedis.get("test"));
@@ -54,7 +54,7 @@ public class JedisTest {
         map.put("c", "ccc");
         // set
         byte[] key = "test".getBytes();
-        byte[] value = new Gson().toJson(map).getBytes();
+        byte[] value = ObjectUtils.toByteArray(map);
         String result = JedisUtils.get().set(key, value);
         System.out.println(result);
     }
@@ -68,10 +68,26 @@ public class JedisTest {
         map.put("3", "ccc");
         // set
         byte[] key = "test".getBytes();
-        byte[] value = new Gson().toJson(map).getBytes();
+        byte[] value = ObjectUtils.toByteArray(map);
         int time = 10;
         Jedis jedis = JedisUtils.get();
         String result = jedis.setex(key, time, value);
+        System.out.println(result);
+    }
+
+    @Test
+    public void byteSetNxTest() {
+        // value
+        Map<String, Object> map = new HashMap<>();
+        map.put("1", "aaa");
+        map.put("2", "bbb");
+        map.put("3", "ccc");
+        // set
+        byte[] key = "test".getBytes();
+        byte[] value = ObjectUtils.toByteArray(map);
+        Jedis jedis = JedisUtils.get();
+        // nx
+        Long result = jedis.setnx(key, value);
         System.out.println(result);
     }
 
@@ -80,8 +96,7 @@ public class JedisTest {
         byte[] key = "test".getBytes();
         byte[] value = JedisUtils.get().get(key);
         // get
-        Type type = new TypeToken<Map<String, Object>>(){}.getType();
-        Map<String, Object> map = new Gson().fromJson(new String(value), type);
+        Map<String, Object> map = ObjectUtils.toEntity(value);
         System.out.println(map);
     }
 }

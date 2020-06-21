@@ -9,6 +9,7 @@ import site.dunhanson.redis.entity.Cluster;
 import site.dunhanson.redis.entity.Redis;
 import site.dunhanson.redis.entity.Sentinel;
 import site.dunhanson.redis.entity.Single;
+import site.dunhanson.utils.basic.YamlUtils;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,10 +22,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JedisUtils {
     /**Gson对象**/
     private static final Gson gson = new Gson();
-    /**yaml配置信息**/
-    private static final Map<String, Object> yamlMap = YamlUtils.getMap("redis.yaml", "redis");
     /**Redis配置信息**/
-    private static Redis redis = gson.fromJson(gson.toJson(yamlMap), Redis.class);
+    private static Redis redis = YamlUtils.load("redis.yaml", Redis.class,"redis");
     /**库池MAP**/
     private static Map<String, Pool<Jedis>> poolMap = new ConcurrentHashMap<>();
 
