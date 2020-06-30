@@ -108,6 +108,6 @@ public class JedisTest {
 
 
 
-## references
+## References
 
 https://github.com/xetorthio/jedis
