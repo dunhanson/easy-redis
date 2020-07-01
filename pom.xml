@@ -6,7 +6,7 @@
 
     <groupId>site.dunhanson.redis</groupId>
     <artifactId>easy-redis</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-alpha</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>easy redis</description>
     <url>https://github.com/dunhanson/easy-redis</url>
