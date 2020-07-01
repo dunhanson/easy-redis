@@ -1,5 +1,5 @@
 redis:
-  type: single
+  type: cluster
   single:
     host: localhost
     port: 6379
@@ -13,3 +13,8 @@ redis:
         - 192.168.2.170:26377
         - 192.168.2.170:26378
         - 192.168.2.170:26379
+      poolConfig:
+        maxTotal: 3000
+        maxIdle: 2000
+        minIdle: 200
+        maxWaitMillis: 30000

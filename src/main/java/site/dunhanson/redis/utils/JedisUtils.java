@@ -1,14 +1,14 @@
 package site.dunhanson.redis.utils;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
 import redis.clients.jedis.util.Pool;
-import site.dunhanson.redis.entity.Cluster;
-import site.dunhanson.redis.entity.Redis;
-import site.dunhanson.redis.entity.Sentinel;
-import site.dunhanson.redis.entity.Single;
+import site.dunhanson.redis.entity.*;
 import site.dunhanson.utils.basic.YamlUtils;
 import java.util.Map;
 import java.util.Set;
@@ -52,7 +52,11 @@ public class JedisUtils {
         String password = sentinel.getPassword();
         Pool<Jedis> pool = poolMap.get("sentinel");
         if(pool == null) {
-            pool = new JedisSentinelPool(masterName, sentinels, password);
+            JedisPoolConfig poolConfig = new JedisPoolConfig();
+            //复制属性,忽略空值
+            CopyOptions copyOptions = CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true);
+            BeanUtil.copyProperties(sentinel.getPoolConfig(), poolConfig);
+            pool = new JedisSentinelPool(masterName, sentinels, poolConfig, password);
             poolMap.put("sentinel", pool);
         }
         return pool.getResource();
