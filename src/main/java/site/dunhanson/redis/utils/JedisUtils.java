@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * redis工具类
  */
 public class JedisUtils {
+    /**配置文件路径**/
     private static String configPath = "redis.yaml";
     /**Redis配置信息**/
     private static Redis redis = YamlUtils.load(configPath, Redis.class,"redis");
