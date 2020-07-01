@@ -114,7 +114,8 @@ public class JedisTest {
 
 ```
 
-
+## Plan
+* Single-node schema add database pool
 
 ## References
 
