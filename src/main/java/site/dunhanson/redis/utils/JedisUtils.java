@@ -2,7 +2,6 @@ package site.dunhanson.redis.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -20,12 +19,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * redis工具类
  */
 public class JedisUtils {
-    /**Gson对象**/
-    private static final Gson gson = new Gson();
+    private static String configPath = "redis.yaml";
     /**Redis配置信息**/
-    private static Redis redis = YamlUtils.load("redis.yaml", Redis.class,"redis");
+    private static Redis redis = YamlUtils.load(configPath, Redis.class,"redis");
     /**库池MAP**/
     private static Map<String, Pool<Jedis>> poolMap = new ConcurrentHashMap<>();
+
+    /**
+     * 设置configPath
+     * @param configPath
+     */
+    public static void setConfigPath(String configPath) {
+        JedisUtils.configPath = configPath;
+    }
 
     /**
      * 单节点
@@ -63,7 +69,7 @@ public class JedisUtils {
     }
 
     /**
-     * 获取
+     * 获取Jedis
      * @return Jedis
      */
     public static Jedis get() {
