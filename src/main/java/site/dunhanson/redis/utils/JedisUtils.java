@@ -55,7 +55,7 @@ public class JedisUtils {
             JedisPoolConfig poolConfig = new JedisPoolConfig();
             //复制属性,忽略空值
             CopyOptions copyOptions = CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true);
-            BeanUtil.copyProperties(sentinel.getPoolConfig(), poolConfig);
+            BeanUtil.copyProperties(sentinel.getPoolConfig(), poolConfig, copyOptions);
             pool = new JedisSentinelPool(masterName, sentinels, poolConfig, password);
             poolMap.put("sentinel", pool);
         }
