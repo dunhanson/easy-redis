@@ -15,4 +15,6 @@ public class Redis {
     private Single single;
     /**集群**/
     private Cluster cluster;
+    /**连接池配置**/
+    private PoolConfig poolConfig;
 }

@@ -17,6 +17,4 @@ public class Sentinel {
     private String password;
     /**地址以及端口**/
     private Set<String> hostAndPort;
-    /**数据库池配置**/
-    private PoolConfig poolConfig;
 }

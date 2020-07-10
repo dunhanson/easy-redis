@@ -15,4 +15,6 @@ public class Single {
     private Integer port;
     /**密码**/
     private String password;
+    /**超时**/
+    private Integer timeout;
 }

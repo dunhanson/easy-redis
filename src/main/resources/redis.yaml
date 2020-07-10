@@ -1,9 +1,10 @@
 redis:
-  type: cluster
+  type: single
   single:
-    host: localhost
-    port: 6379
-    password:
+    host: 192.168.2.170
+    port: 6377
+    password: bxkc2016
+    timeout: 30000
   cluster:
     type: sentinel
     sentinel:
@@ -13,8 +14,8 @@ redis:
         - 192.168.2.170:26377
         - 192.168.2.170:26378
         - 192.168.2.170:26379
-      poolConfig:
-        maxTotal: 3000
-        maxIdle: 2000
-        minIdle: 200
-        maxWaitMillis: 30000
+  poolConfig:
+    maxTotal: 3000
+    maxIdle: 2000
+    minIdle: 200
+    maxWaitMillis: 30000

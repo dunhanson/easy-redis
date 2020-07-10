@@ -6,7 +6,7 @@
 
     <groupId>site.dunhanson.redis</groupId>
     <artifactId>easy-redis</artifactId>
-    <version>1.0.2-alpha</version>
+    <version>1.0.2-alpha-2</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>easy redis</description>
     <url>https://github.com/dunhanson/easy-redis</url>
@@ -71,12 +71,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.30</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.30</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

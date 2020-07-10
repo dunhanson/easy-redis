@@ -2,8 +2,9 @@ package site.dunhanson.redis.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
 import redis.clients.jedis.util.Pool;
@@ -25,6 +26,8 @@ public class JedisUtils {
     private static Redis redis = YamlUtils.load(configPath, Redis.class,"redis");
     /**库池MAP**/
     private static Map<String, Pool<Jedis>> poolMap = new ConcurrentHashMap<>();
+    private static String SINGLE = "single";
+    private static String SENTINEL = "sentinel";
 
     /**
      * 设置configPath
@@ -39,13 +42,22 @@ public class JedisUtils {
      * @param single
      * @return Jedis
      */
-    private static Jedis getSingle(Single single) {
-        Jedis jedis = new Jedis(single.getHost(), single.getPort());
-        String password = single.getPassword();
-        if(StringUtils.isNoneBlank(password)) {
-            jedis.auth(password);
+    private static Jedis getSingle(Single single, PoolConfig poolConfig) {
+        Pool<Jedis> pool = poolMap.get(SINGLE);
+        if(pool == null) {
+            GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
+            String host = single.getHost();
+            int port = single.getPort();
+            int timeout = single.getTimeout();
+            String password = single.getPassword();
+            // 复制属性,忽略空值
+            CopyOptions options = CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true);
+            BeanUtil.copyProperties(poolConfig, genericObjectPoolConfig, options);
+            // new pool
+            pool = new JedisPool(genericObjectPoolConfig, host, port, timeout, password);
+            poolMap.put(SINGLE, pool);
         }
-        return jedis;
+        return pool.getResource();
     }
 
     /**
@@ -53,18 +65,19 @@ public class JedisUtils {
      * @param sentinel
      * @return Jedis
      */
-    private static Jedis getSentinel(Sentinel sentinel) {
+    private static Jedis getSentinel(Sentinel sentinel, PoolConfig poolConfig) {
         String masterName = sentinel.getMasterName();
         Set<String> sentinels = sentinel.getHostAndPort();
         String password = sentinel.getPassword();
-        Pool<Jedis> pool = poolMap.get("sentinel");
+        Pool<Jedis> pool = poolMap.get(SENTINEL);
         if(pool == null) {
-            JedisPoolConfig poolConfig = new JedisPoolConfig();
-            //复制属性,忽略空值
-            CopyOptions copyOptions = CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true);
-            BeanUtil.copyProperties(sentinel.getPoolConfig(), poolConfig, copyOptions);
-            pool = new JedisSentinelPool(masterName, sentinels, poolConfig, password);
-            poolMap.put("sentinel", pool);
+            JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+            // 复制属性,忽略空值
+            CopyOptions options = CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true);
+            BeanUtil.copyProperties(poolConfig, jedisPoolConfig, options);
+            // new pool
+            pool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig, password);
+            poolMap.put(SENTINEL, pool);
         }
         return pool.getResource();
     }
@@ -77,15 +90,15 @@ public class JedisUtils {
         //类型（单节点&集群）
         String type = redis.getType();
         //单节点
-        if(type.equals("single")) {
-            return getSingle(redis.getSingle());
+        if(type.equals(SINGLE)) {
+            return getSingle(redis.getSingle(), redis.getPoolConfig());
         }
         //集群
         Cluster cluster = redis.getCluster();
         type = cluster.getType();
         //哨兵
-        if(type.equals("sentinel")) {
-            return getSentinel(cluster.getSentinel());
+        if(type.equals(SENTINEL)) {
+            return getSentinel(cluster.getSentinel(), redis.getPoolConfig());
         }
         return null;
     }
